@@ -1,0 +1,422 @@
+﻿@model IEnumerable<HOPITAL2.Models.Consultation>
+
+@{
+    ViewData["Title"] = "Consultations";
+}
+
+<div class="consultation-management-container">
+    <div class="header-section">
+        <h1 class="page-title">
+            <i class="fas fa-stethoscope"></i>
+            @ViewData["Title"]
+        </h1>
+
+        <div class="action-bar">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text"
+                       id="searchInput"
+                       class="search-input"
+                       placeholder="Rechercher une consultation..."
+                       aria-label="Rechercher une consultation" />
+            </div>
+
+            <a asp-action="Create" class="btn btn-primary add-consultation-btn">
+                <i class="fas fa-plus-circle"></i>
+                Nouvelle Consultation
+            </a>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="table-responsive">
+            <table class="table consultation-table" id="consultationTable">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">@Html.DisplayNameFor(model => model.Notes)</th>
+                        <th style="width: 15%">@Html.DisplayNameFor(model => model.DateConsultation)</th>
+                        <th style="width: 10%">@Html.DisplayNameFor(model => model.Prix)</th>
+                        <th style="width: 15%">@Html.DisplayNameFor(model => model.DossierMedical)</th>
+                        <th style="width: 15%">@Html.DisplayNameFor(model => model.RendezVous)</th>
+                        <th style="width: 20%" class="actions-column">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="consultationTableBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="consultation-row">
+                            <td>
+                                <div class="text-truncate" data-full-text="@item.Notes">
+                                    @Html.DisplayFor(modelItem => item.Notes)
+                                </div>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.DateConsultation)</td>
+                            <td><span class="badge bg-success">@item.Prix MAD</span></td>
+                            <td>@Html.DisplayFor(modelItem => item.DossierMedical.DossierMedicalId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.RendezVous.RendezVousId)</td>
+                            <td class="actions-cell">
+                                <div class="btn-group">
+                                    <a asp-action="Edit" asp-route-id="@item.ConsultationId"
+                                       class="btn btn-action btn-edit" data-bs-toggle="tooltip" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.ConsultationId"
+                                       class="btn btn-action btn-details" data-bs-toggle="tooltip" title="Détails">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.ConsultationId"
+                                       class="btn btn-action btn-delete" data-bs-toggle="tooltip" title="Supprimer">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        :root {
+            --primary-color: #2c7be5;
+            --secondary-color: #6e84a3;
+            --success-color: #00d97e;
+            --danger-color: #e63757;
+            --warning-color: #f6c343;
+            --info-color: #39afd1;
+            --background-color: #f9fbfd;
+            --border-color: #e3ebf6;
+            --card-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+        }
+
+        .consultation-management-container {
+            padding: 1.5rem;
+            margin: 0 auto;
+            background-color: var(--background-color);
+            min-height: calc(100vh - 60px);
+        }
+
+        .header-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #12263f;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .page-title i {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            background-color: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.1);
+        }
+
+        .add-consultation-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .add-consultation-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(44, 123, 229, 0.2);
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            margin: -1px;
+            width: calc(100% + 2px);
+        }
+
+        .consultation-table {
+            margin: 0;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: fixed;
+        }
+
+        .consultation-table thead th {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .consultation-table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .consultation-row {
+            transition: all 0.3s ease;
+        }
+
+        .consultation-row:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .text-truncate {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .badge {
+            padding: 0.5em 0.75em;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .bg-success { background-color: var(--success-color) !important; }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-start;
+        }
+
+        .btn-action {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            color: white;
+            border: none;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .btn-edit { background-color: var(--primary-color); }
+        .btn-details { background-color: var(--secondary-color); }
+        .btn-delete { background-color: var(--danger-color); }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        @@media (max-width: 992px) {
+            .consultation-management-container {
+                padding: 1rem;
+            }
+
+            .action-bar {
+                flex-direction: column;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .consultation-table {
+                min-width: 800px;
+            }
+        }
+
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .fade-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 300ms, transform 300ms;
+        }
+
+        .custom-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            z-index: 1000;
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+
+            // Enhanced Search with Debouncing
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            const debounce = (func, wait) => {
+                return (...args) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            };
+
+            const highlightText = (text, filter) => {
+                if (!filter) return text;
+                const regex = new RegExp(`(${filter})`, 'gi');
+                return text.replace(regex, '<mark class="bg-warning">$1</mark>');
+            };
+
+            const searchConsultations = debounce(() => {
+                const filter = searchInput.value.toLowerCase();
+                const rows = document.querySelectorAll('.consultation-row');
+
+                rows.forEach(row => {
+                    const notes = row.querySelector('.text-truncate').textContent;
+                    const match = notes.toLowerCase().includes(filter);
+
+                    if (match) {
+                        row.style.display = '';
+                        row.querySelector('.text-truncate').innerHTML = highlightText(notes, filter);
+                        row.classList.add('fade-enter');
+                        requestAnimationFrame(() => row.classList.add('fade-enter-active'));
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }, 300);
+
+            searchInput.addEventListener('input', searchConsultations);
+
+            // Custom Tooltip for Truncated Text
+            const truncatedElements = document.querySelectorAll('.text-truncate');
+            let activeTooltip = null;
+
+            const createTooltip = (text, element) => {
+                if (activeTooltip) {
+                    document.body.removeChild(activeTooltip);
+                }
+
+                const tooltip = document.createElement('div');
+                tooltip.className = 'custom-tooltip';
+                tooltip.textContent = text;
+                document.body.appendChild(tooltip);
+
+                const rect = element.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 10}px`;
+                tooltip.style.left = `${rect.left + (rect.width - tooltip.offsetWidth) / 2}px`;
+
+                activeTooltip = tooltip;
+            };
+
+            truncatedElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const fullText = element.getAttribute('data-full-text');
+                    if (element.scrollWidth > element.clientWidth) {
+                        createTooltip(fullText, element);
+                    }
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    if (activeTooltip) {
+                        document.body.removeChild(activeTooltip);
+                        activeTooltip = null;
+                    }
+                });
+            });
+
+            // Row Animation on Load
+            const animateRows = () => {
+                const rows = document.querySelectorAll('.consultation-row');
+                rows.forEach((row, index) => {
+                    setTimeout(() => {
+                        row.classList.add('fade-enter');
+                        requestAnimationFrame(() => row.classList.add('fade-enter-active'));
+                    }, index * 100);
+                });
+            };
+
+            animateRows();
+        });
+    </script>
+}

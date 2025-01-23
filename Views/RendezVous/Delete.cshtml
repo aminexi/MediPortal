@@ -1,0 +1,51 @@
+﻿@model HOPITAL2.Models.RendezVou
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>RendezVou</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateHeure)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateHeure)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Statut)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Statut)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Motif)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Motif)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DossierMedical)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DossierMedical.DossierMedicalId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Medecin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Medecin.MedecinId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="RendezVousId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

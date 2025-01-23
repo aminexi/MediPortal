@@ -1,0 +1,373 @@
+﻿@page
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Inscription";
+}
+
+<style>
+    :root {
+        --primary: #2563eb;
+        --primary-dark: #1e40af;
+        --secondary: #3b82f6;
+        --accent: #10b981;
+        --danger: #ef4444;
+        --background: #f8fafc;
+        --text: #1e293b;
+        --border: #e2e8f0;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        min-height: 100vh;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    .register-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
+
+    .card {
+        background: white;
+        border: none;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        position: relative;
+    }
+
+    .card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, var(--accent), var(--primary));
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80') center/cover;
+        opacity: 0.1;
+    }
+
+    .card-header h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        position: relative;
+    }
+
+    .card-header p {
+        opacity: 0.9;
+        margin: 0;
+        position: relative;
+    }
+
+    .card-body {
+        padding: 2.5rem 2rem;
+    }
+
+    .form-floating {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-floating label {
+        color: #64748b;
+        padding-left: 1rem;
+    }
+
+    .form-control {
+        border: 2px solid var(--border);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        height: auto;
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+
+    .form-control:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    }
+
+    .password-requirements {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+        background: #f8fafc;
+        border-radius: 0.5rem;
+        border: 1px solid var(--border);
+    }
+
+    .password-requirements ul {
+        margin: 0;
+        padding-left: 1.5rem;
+    }
+
+    .password-requirements li {
+        margin: 0.25rem 0;
+    }
+
+    .btn-register {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        color: white;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-register:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-register:disabled {
+        background: #cbd5e1;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .register-links {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .register-links a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .register-links a:hover {
+        color: var(--primary-dark);
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 1.5rem 0;
+        color: #94a3b8;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .divider span {
+        padding: 0 1rem;
+        font-size: 0.875rem;
+    }
+
+    .text-danger {
+        color: var(--danger) !important;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    /* Animations */
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-slide-up {
+        animation: slideUp 0.5s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+</style>
+
+<div class="register-container">
+    <div class="card animate-slide-up">
+        <div class="card-header">
+            <h3>Créer un compte</h3>
+            <p>Rejoignez MediPortal dès aujourd'hui</p>
+        </div>
+        <div class="card-body">
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                <div class="form-floating delay-1">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="nom@exemple.com" />
+                    <label asp-for="Input.Email">
+                        <i class="bi bi-envelope me-2"></i>Email
+                    </label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating delay-2">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="mot de passe" type="password" />
+                    <label asp-for="Input.Password">
+                        <i class="bi bi-lock me-2"></i>Mot de passe
+                    </label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="password-requirements delay-2">
+                    <ul>
+                        <li>Au moins 8 caractères</li>
+                        <li>Au moins une lettre majuscule</li>
+                        <li>Au moins un chiffre</li>
+                        <li>Au moins un caractère spécial</li>
+                    </ul>
+                </div>
+
+                <div class="form-floating delay-2">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="confirmer le mot de passe" type="password" />
+                    <label asp-for="Input.ConfirmPassword">
+                        <i class="bi bi-shield-lock me-2"></i>Confirmer le mot de passe
+                    </label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button id="registerSubmit" type="submit" class="btn btn-register w-100 delay-3">
+                    <i class="bi bi-person-plus me-2"></i>Créer mon compte
+                </button>
+
+                <div class="divider delay-3">
+                    <span>ou</span>
+                </div>
+
+                <div class="register-links delay-3">
+                    <p class="mb-0">
+                        Déjà inscrit ? 
+                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            Se connecter
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
+            const submitButton = document.getElementById('registerSubmit');
+            const inputs = form.querySelectorAll('input');
+            const password = form.querySelector('input[type="password"]');
+
+            // Form validation
+            function validateForm() {
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (input.hasAttribute('aria-required') && !input.value) {
+                        isValid = false;
+                    }
+                });
+                submitButton.disabled = !isValid;
+            }
+
+            // Initial validation
+            validateForm();
+
+            // Validate on input
+            inputs.forEach(input => {
+                input.addEventListener('input', validateForm);
+            });
+
+            // Password strength indicator
+            password.addEventListener('input', function() {
+                const value = this.value;
+                const requirements = [
+                    value.length >= 8,
+                    /[A-Z]/.test(value),
+                    /[0-9]/.test(value),
+                    /[^A-Za-z0-9]/.test(value)
+                ];
+
+                document.querySelectorAll('.password-requirements li').forEach((li, index) => {
+                    li.style.color = requirements[index] ? '#10b981' : '#64748b';
+                });
+            });
+
+            // Add ripple effect to button
+            submitButton.addEventListener('click', function(e) {
+                if (!submitButton.disabled) {
+                    const rect = submitButton.getBoundingClientRect();
+                    const ripple = document.createElement('div');
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        top: ${y}px;
+                        left: ${x}px;
+                        background: rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+
+                    submitButton.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                }
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @@keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+}

@@ -1,0 +1,120 @@
+﻿@model HOPITAL2.Models.Patient
+
+@{
+    ViewData["Title"] = "Créer un Patient";
+}
+
+<h1 class="page-title">Créer un Patient</h1>
+
+<div class="create-patient-form">
+    <h4 class="section-title">Informations du Patient</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Nom" class="control-label"></label>
+                    <input asp-for="Nom" class="form-control" />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Prenom" class="control-label"></label>
+                    <input asp-for="Prenom" class="form-control" />
+                    <span asp-validation-for="Prenom" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Adresse" class="control-label"></label>
+                    <input asp-for="Adresse" class="form-control" />
+                    <span asp-validation-for="Adresse" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DateNaissance" class="control-label"></label>
+                    <input asp-for="DateNaissance" class="form-control" type="date" />
+                    <span asp-validation-for="DateNaissance" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Telephone" class="control-label"></label>
+                    <input asp-for="Telephone" class="form-control" />
+                    <span asp-validation-for="Telephone" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Créer" class="btn btn-create" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="back-link">
+    <a asp-action="Index" class="btn btn-back">Retour à la Liste</a>
+</div>
+
+@section Styles {
+    <style>
+        .page-title {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: #4b8bbe;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .create-patient-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .create-patient-form input.form-control {
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-create {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-create:hover {
+            background-color: #218838;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+}
+

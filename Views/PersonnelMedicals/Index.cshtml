@@ -1,0 +1,48 @@
+﻿@model IEnumerable<HOPITAL2.Models.PersonnelMedical>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fonction)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fonction)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PersonnelID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PersonnelID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PersonnelID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

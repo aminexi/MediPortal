@@ -1,0 +1,42 @@
+﻿@model HOPITAL2.Models.Examan
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Examan</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeExamen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TypeExamen)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateExamen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateExamen)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Resultats)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Resultats)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DossierMedical)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DossierMedical.DossierMedicalId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ExamenId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

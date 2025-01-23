@@ -1,0 +1,432 @@
+﻿@model IEnumerable<HOPITAL2.Models.RendezVou>
+
+@{
+    ViewData["Title"] = "Gestion des RendezVous";
+}
+
+<div class="dossier-management-container">
+    <div class="header-section">
+        <h1 class="page-title">
+            <i class="fas fa-calendar-alt"></i>
+            Gestion des RendezVous
+        </h1>
+
+        <div class="action-bar">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Rechercher un rendez-vous..."
+                    aria-label="Rechercher un rendez-vous"
+                />
+            </div>
+
+            <a asp-action="Create" class="add-dossier-btn">
+                <i class="fas fa-calendar-plus"></i>
+                Nouveau RendezVous
+            </a>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="table-responsive">
+            <table class="dossier-table" id="rendezvousTable">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.DossierMedical)</th>
+                        <th>@Html.DisplayNameFor(model => model.Medecin)</th>
+                        <th>@Html.DisplayNameFor(model => model.DateHeure)</th>
+                        <th>@Html.DisplayNameFor(model => model.Statut)</th>
+                        <th>Motif</th>
+                        <th style="width: 180px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="rendezvousTableBody">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="dossier-row">
+                            <td class="text-truncate" data-full-text="@item.DossierMedical.DossierMedicalId">
+                                @item.DossierMedical.DossierMedicalId
+                            </td>
+                            <td class="text-truncate" data-full-text="@($"{item.Medecin.Nom} {item.Medecin.Prenom}")">
+                                @item.Medecin.Nom @item.Medecin.Prenom
+                            </td>
+                            <td>@item.DateHeure.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <span class="badge @GetStatusBadgeClass(item.Statut)">
+                                    @item.Statut
+                                </span>
+                            </td>
+                            <td class="text-truncate" data-full-text="@item.Motif">@item.Motif</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="Edit" asp-route-id="@item.RendezVousId" 
+                                       class="btn-action btn-edit" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.RendezVousId" 
+                                       class="btn-action btn-details" title="Détails">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.RendezVousId" 
+                                       class="btn-action btn-delete" title="Supprimer">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetStatusBadgeClass(string status)
+    {
+        return status?.ToLower() switch
+        {
+            "planifié" => "bg-info",
+            "en attente" => "bg-warning",
+            "terminé" => "bg-success",
+            _ => "bg-secondary"
+        };
+    }
+}
+
+@section Styles {
+    <style>
+        :root {
+            --primary-color: #2c7be5;
+            --secondary-color: #6e84a3;
+            --success-color: #00d97e;
+            --danger-color: #e63757;
+            --warning-color: #f6c343;
+            --info-color: #39afd1;
+            --background-color: #f9fbfd;
+            --border-color: #e3ebf6;
+            --card-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
+        }
+
+        .dossier-management-container {
+            padding: 1.5rem;
+            margin: 0 auto;
+            background-color: var(--background-color);
+            min-height: calc(100vh - 60px);
+        }
+
+        .header-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #12263f;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .page-title i {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            background-color: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 123, 229, 0.1);
+        }
+
+        .add-dossier-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .add-dossier-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(44, 123, 229, 0.2);
+            color: white;
+            text-decoration: none;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            margin: -1px;
+            width: calc(100% + 2px);
+        }
+
+        .dossier-table {
+            margin: 0;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .dossier-table thead th {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .dossier-table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+        }
+
+        .dossier-row {
+            transition: all 0.3s ease;
+        }
+
+        .dossier-row:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            padding: 0.5em 0.75em;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            color: white;
+        }
+
+        .bg-info { background-color: var(--info-color) !important; }
+        .bg-warning { background-color: var(--warning-color) !important; }
+        .bg-success { background-color: var(--success-color) !important; }
+        .bg-secondary { background-color: var(--secondary-color) !important; }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-start;
+        }
+
+        .btn-action {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            color: white;
+            border: none;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .btn-edit { background-color: var(--primary-color); }
+        .btn-details { background-color: var(--secondary-color); }
+        .btn-delete { background-color: var(--danger-color); }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            color: white;
+            text-decoration: none;
+        }
+
+        .text-truncate {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .custom-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            z-index: 1000;
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+
+        @@media (max-width: 992px) {
+            .dossier-management-container {
+                padding: 1rem;
+            }
+
+            .action-bar {
+                flex-direction: column;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .dossier-table {
+                min-width: 800px;
+            }
+        }
+
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .fade-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 300ms, transform 300ms;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced Search with Debouncing
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            const debounce = (func, wait) => {
+                return (...args) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            };
+
+            const searchRendezVous = debounce(() => {
+                const filter = searchInput.value.toLowerCase();
+                const rows = document.querySelectorAll('.dossier-row');
+
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    const match = text.includes(filter);
+
+                    if (match) {
+                        row.style.display = '';
+                        row.classList.add('fade-enter');
+                        requestAnimationFrame(() => row.classList.add('fade-enter-active'));
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }, 300);
+
+            searchInput.addEventListener('input', searchRendezVous);
+
+            // Custom Tooltip for Truncated Text
+            const truncatedElements = document.querySelectorAll('.text-truncate');
+            let activeTooltip = null;
+
+            const createTooltip = (text, element) => {
+                if (activeTooltip) {
+                    document.body.removeChild(activeTooltip);
+                }
+
+                const tooltip = document.createElement('div');
+                tooltip.className = 'custom-tooltip';
+                tooltip.textContent = text;
+                document.body.appendChild(tooltip);
+
+                const rect = element.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                tooltip.style.top = `${rect.top + scrollTop - tooltip.offsetHeight - 10}px`;
+                tooltip.style.left = `${rect.left + (rect.width - tooltip.offsetWidth) / 2}px`;
+
+                activeTooltip = tooltip;
+            };
+
+            truncatedElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const fullText = element.getAttribute('data-full-text');
+                    if (element.scrollWidth > element.clientWidth) {
+                        createTooltip(fullText, element);
+                    }
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    if (activeTooltip) {
+                        document.body.removeChild(activeTooltip);
+                        activeTooltip = null;
+                    }
+                });
+            });
+
+            // Row Animation on Load
+            const animateRows = () => {
+                const rows = document.querySelectorAll('.dossier-row');
+                rows.forEach((row, index) => {
+                    setTimeout(() => {
+                        row.classList.add('fade-enter');
+                        requestAnimationFrame(() => row.classList.add('fade-enter-active'));
+                    }, index * 100);
+                });
+            };
+
+            animateRows();
+        });
+    </script>
+}

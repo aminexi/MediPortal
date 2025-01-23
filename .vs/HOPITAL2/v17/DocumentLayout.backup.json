@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\AMINE\\source\\repos\\HOPITAL2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3CA04027-708A-4EE5-A9FC-FFB32A8386E6}|HOPITAL2.csproj|c:\\users\\amine\\source\\repos\\hopital2\\views\\medecins\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3CA04027-708A-4EE5-A9FC-FFB32A8386E6}|HOPITAL2.csproj|solutionrelative:views\\medecins\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CA04027-708A-4EE5-A9FC-FFB32A8386E6}|HOPITAL2.csproj|c:\\users\\amine\\source\\repos\\hopital2\\views\\patients\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3CA04027-708A-4EE5-A9FC-FFB32A8386E6}|HOPITAL2.csproj|solutionrelative:views\\patients\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\AMINE\\source\\repos\\HOPITAL2\\Views\\Medecins\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Medecins\\Index.cshtml",
+              "ToolTip": "C:\\Users\\AMINE\\source\\repos\\HOPITAL2\\Views\\Medecins\\Index.cshtml*",
+              "RelativeToolTip": "Views\\Medecins\\Index.cshtml*",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAiwLEAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-23T22:58:31.875Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\AMINE\\source\\repos\\HOPITAL2\\Views\\Patients\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Patients\\Index.cshtml",
+              "ToolTip": "C:\\Users\\AMINE\\source\\repos\\HOPITAL2\\Views\\Patients\\Index.cshtml",
+              "RelativeToolTip": "Views\\Patients\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALQBAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-23T22:53:10.98Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

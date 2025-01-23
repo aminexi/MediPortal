@@ -1,0 +1,152 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav ms-auto d-flex align-items-center gap-3">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link d-flex align-items-center gap-2" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                <div class="avatar">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <span class="user-name">@UserManager.GetUserName(User).Split('@')[0]</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" class="m-0" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index2", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="btn btn-auth btn-logout">
+                    <i class="bi bi-box-arrow-right me-2"></i>
+                    <span>Déconnexion</span>
+                </button>
+            </form>
+
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="btn btn-auth btn-login" id="login" asp-area="Identity" asp-page="/Account/Login">
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                <span>Connexion</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-auth btn-register" id="register" asp-area="Identity" asp-page="/Account/Register">
+                <i class="bi bi-person-plus me-2"></i>
+                <span>Inscription</span>
+            </a>
+        </li>
+    }
+</ul>
+
+<style>
+    .avatar {
+        width: 32px;
+        height: 32px;
+        background: #6366f1; /* Indigo-500 */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .avatar i {
+        font-size: 1.25rem;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    header.scrolled .avatar {
+        background: #e0e7ff; /* Indigo-100 */
+    }
+
+    header.scrolled .avatar i {
+        color: #4f46e5; /* Indigo-600 */
+    }
+
+    .user-name {
+        font-weight: 500;
+        color: #1e293b; /* Slate-800 */
+        transition: all 0.3s ease;
+    }
+
+    .btn-auth {
+        display: inline-flex;
+        align-items: center;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border-radius: 0.375rem;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Styling for login button */
+    .btn-login {
+        background-color: #3b82f6; /* Blue-500 */
+        color: white;
+        border: none;
+    }
+
+    .btn-login:hover {
+        background-color: #2563eb; /* Blue-600 */
+        box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1), 0 2px 4px -1px rgba(59, 130, 246, 0.06);
+    }
+
+    /* Styling for register button */
+    .btn-register {
+        background-color: #10b981; /* Emerald-500 */
+        color: white;
+        border: none;
+    }
+
+    .btn-register:hover {
+        background-color: #059669; /* Emerald-600 */
+        box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06);
+    }
+
+    /* Styling for logout button */
+    .btn-logout {
+        background-color: #ef4444; /* Red-500 */
+        color: white;
+        border: none;
+    }
+
+    .btn-logout:hover {
+        background-color: #dc2626; /* Red-600 */
+        box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1), 0 2px 4px -1px rgba(239, 68, 68, 0.06);
+    }
+
+    .btn-auth i {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+    }
+
+    @@media (max-width: 991.98px) {
+        .navbar-nav {
+            gap: 0.5rem !important;
+        }
+
+        .avatar {
+            background: #4f46e5; /* Indigo-600 */
+        }
+
+        .avatar i {
+            font-size: 1rem;
+        }
+
+        .user-name {
+            color: #334155 !important; /* Slate-700 */
+        }
+
+        /* Adjust button sizes for smaller screens */
+        .btn-auth {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-auth i {
+            font-size: 0.875rem;
+        }
+    }
+</style>

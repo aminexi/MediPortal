@@ -1,0 +1,51 @@
+﻿@model HOPITAL2.Models.Medecin
+
+@{
+    ViewData["Title"] = "Créer Médecin";
+}
+
+<h1 class="page-title">Créer un Médecin</h1>
+
+<div class="create-medecin-form">
+    <h4 class="section-title">Formulaire Médecin</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Nom -->
+                <div class="form-group">
+                    <label asp-for="Nom" class="control-label"></label>
+                    <input asp-for="Nom" class="form-control" />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+
+                <!-- Prenom -->
+                <div class="form-group">
+                    <label asp-for="Prenom" class="control-label"></label>
+                    <input asp-for="Prenom" class="form-control" />
+                    <span asp-validation-for="Prenom" class="text-danger"></span>
+                </div>
+
+                <!-- Specialite (Drop-down) -->
+                <div class="form-group">
+                    <label asp-for="Specialite" class="control-label"></label>
+                    <select asp-for="Specialite" class="form-control" asp-items="ViewBag.Specialites">
+                        <option value="">-- Sélectionner une spécialité --</option>
+                    </select>
+                    <span asp-validation-for="Specialite" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <input type="submit" value="Créer" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="action-links">
+    <a asp-action="Index" class="btn btn-back">Retour à la Liste</a>
+</div>
